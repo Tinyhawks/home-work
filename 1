@@ -1,0 +1,113 @@
+#include <iostream>
+using namespace std;
+
+struct rational
+{
+	int numarator;
+	int numitor;
+};
+
+int vfnumitor(int a)
+{
+	if (a == 0)return 0;
+	else return 1;
+}
+
+int cmmdc(int a, int b)
+{
+	int x, y;
+	x = a; y = b;
+	while (x != y)
+	{
+		if (x>y)
+            x = x - y;
+            else
+             y = y - x;
+	}
+	return x;
+}
+
+int cmmmc(int &a, int &b)
+{
+	return((a*b)/cmmdc(a, b));
+}
+
+void operatii(int a, int b,int c, int d	) //a,b numarator/numitor primul numar ,c,d idem al doilea numar
+{
+	int i, opt;
+	cout << "Introduceti operatia dorita : 1 adunare 2 inmultire 3 scadere 4 impartire ";
+	cin >> opt;
+	rational suma, prod, dif, imp;
+	switch (opt)
+	{
+	case 1 : //adunare
+	  {
+		//calculam cmmmc al numitorilor
+		i=cmmmc(b, d);
+		suma.numarator = (i / b)*a + (i / d)*c;
+		suma.numitor = i;
+		cout << "Suma este " << suma.numarator << "/" << suma.numitor << endl;
+	 }break;
+	case 2 : //inmultire
+	{
+		prod.numarator = a * c;
+		prod.numitor = b * d;
+		cout << "Produsul este " << prod.numarator << "/" << prod.numitor;
+	}break;
+	case 3: //scadere
+	{
+		//calculam cmmmc al numitorilor
+		i = cmmmc(b, d);
+		dif.numarator = (i / b)*a - (i / d)*c;
+		dif.numitor = i;
+		cout << "Diferenta este " << dif.numarator << "/" << dif.numitor;
+	}break;
+	case 4: //impartire
+	{
+		imp.numarator = a * d;
+		imp.numitor = c * b;
+		cout << "Impartirea este " << imp.numarator << "/" << imp.numitor;
+	}break;
+
+	}
+
+}
+
+
+void simplificare(int a, int b, int c, int d)
+{   cout<<endl;
+    cout<<"Primul numar simplificat este:";
+    cout<<a/cmmdc(a,b)<<"/"<<b/cmmdc(a,b)<<endl;
+    cout<<"Al doilea numar simplificat este:";
+    cout<<c/cmmdc(c,d)<<"/"<<d/cmmdc(c,d)<<endl;
+}
+
+int main()
+{
+    int n;
+
+    rational v[1];
+
+    for (int j = 0; j < 1; j++)
+	{
+		cout << "Introduceti numaratorul:  ";
+		 cin >> v[j].numarator;
+
+		cout << "Introduceti numitorul:  ";
+		do{ cin >> n;
+		 if(vfnumitor(n)==1)
+            {
+                v[j].numitor=n;
+            }else
+                {
+                cout<<"Numitorul nu poate fi 0"<<endl;
+                }
+		}while(n==0);
+	}
+
+    operatii(v[0].numarator,v[0].numitor,v[1].numarator,v[1].numitor);
+
+    simplificare(v[0].numarator,v[0].numitor,v[1].numarator,v[1].numitor);
+
+return 0;
+}
